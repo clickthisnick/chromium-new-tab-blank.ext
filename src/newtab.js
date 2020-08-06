@@ -1,9 +1,9 @@
-function createTab(tab) {
-    if (tab.url === "chrome://newtab" || tab.url === "" || tab.url === null) {
-        const redirect = chrome.extension.getURL('blank.html')
+function newTab(tab) {
+    if (tab.pendingUrl === "chrome://newtab/") {
+        const redirect = chrome.extension.getURL('blank.html') + "?" + tab.url
 
         chrome.tabs.update(tab.id, { url: redirect });
     }
 }
 
-chrome.tabs.onCreated.addListener(createTab)
+chrome.tabs.onCreated.addListener(newTab)
